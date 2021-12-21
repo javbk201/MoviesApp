@@ -21,8 +21,12 @@ export default function Navigation() {
                 backgroundColor: 'white',
             }
         }}>
-           <Stack.Screen name="Home" component={Home} />
-           <Stack.Screen name="Details" component={Details} />
+            <Stack.Screen name="Home" options={{
+                cardStyle: {
+                    backgroundColor: 'white',
+                }
+            }} component={Home} />
+            <Stack.Screen name="Details" component={Details} />
        </Stack.Navigator> 
     )
 }

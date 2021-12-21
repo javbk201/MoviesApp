@@ -1,8 +1,9 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react'
-import { View, Text, ScrollView, Image, Dimensions, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, Image, Dimensions, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import MovieDetail from '../../components/MovieDatail/MovieDetail';
 import useMovieDetails from '../../hooks/DetailsHooks/useMovieDetails';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { RootStackParams } from '../../Navigation/Navigation';
 
@@ -10,7 +11,7 @@ interface Props extends StackScreenProps<RootStackParams, 'Details'> {}
 
 const screenHeight =  Dimensions.get('screen').height;
 
-const Details = ({route}: Props) => {
+const Details = ({route, navigation}: Props) => {
     const movie = route.params;
     const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
 
@@ -35,6 +36,17 @@ const Details = ({route}: Props) => {
                         : <MovieDetail movieFull={movieFull} cast={cast} />
                 }
 
+            </View>
+            <View style={styles.backButtom}>
+                <TouchableOpacity 
+                    activeOpacity={0.6}
+                    onPress={() => navigation.goBack()}>
+                    <Icon 
+                        color={'white'}
+                        name={'arrow-back'}
+                        size={60}
+                        />
+                </TouchableOpacity>
             </View>
         </ScrollView>
     )
@@ -78,5 +90,12 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    backButtom:{
+        position: 'absolute',
+        zIndex: 999,
+        elevation: 9,
+        top: 30,
+        left: 5
     }
 })
